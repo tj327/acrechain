@@ -1,0 +1,36 @@
+syntax = "proto3";
+package acrechain.bridge;
+
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/ArableProtocol/acrechain/x/bridge/types";
+
+// Msg defines the bridge Msg service.
+service Msg {
+  rpc MintTokensToAccount(MsgMintTokensToAccount)
+      returns (MsgMintTokensToAccountResponse) {
+    option (google.api.http).get =
+        "/acrechain/bridge/tx/mint_tokens_to_account";
+  };
+}
+
+message MsgMintTokensToAccount {
+  option (gogoproto.equal) = false;
+
+  // sender specifies the account to receive the funds
+  string sender = 1;
+
+  // to_address specifies the account to receive the funds
+  string to_address = 2;
+
+  // token amount
+  repeated cosmos.base.v1beta1.Coin amounts = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+message MsgMintTokensToAccountResponse {}
+

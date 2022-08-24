@@ -1,0 +1,20 @@
+syntax = "proto3";
+package acrechain.bridge;
+
+import "gogoproto/gogo.proto";
+import "cosmos/bank/v1beta1/bank.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/ArableProtocol/acrechain/x/bridge/types";
+
+
+message AccountAllocation {
+  option (gogoproto.equal) = true;
+  // address
+  string account_address = 1;
+  // token amount
+  repeated cosmos.base.v1beta1.Coin amounts = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}

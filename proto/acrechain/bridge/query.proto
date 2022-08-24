@@ -1,0 +1,52 @@
+syntax = "proto3";
+package acrechain.bridge;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "acrechain/bridge/genesis.proto";
+import "acrechain/bridge/bridge.proto";
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/ArableProtocol/acrechain/x/bridge/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  rpc AccountAllocation(QueryAccountAllocationRequest) returns (QueryAccountAllocationResponse) {
+    option (google.api.http).get = "/acrechain/bridge/account_allocation/{address}";
+  }
+
+  rpc AllAllocations(QueryAllAllocationsRequest) returns (QueryAllAllocationsResponse) {
+    option (google.api.http).get = "/acrechain/bridge/all_allocations";
+  }
+
+  // Params retrieves the erc20 module params
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/acrechain/bridge/params";
+  }
+}
+
+message QueryAllAllocationsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAllocationsResponse {
+  repeated AccountAllocation account_allocation = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+
+
+message QueryAccountAllocationRequest {
+  string address = 1;
+}
+
+message QueryAccountAllocationResponse {
+  AccountAllocation account_allocation = 1 [ (gogoproto.nullable) = false ];
+}
+
+
+message QueryParamsRequest {}
+
+message QueryParamsResponse {
+  Params params = 1 [ (gogoproto.nullable) = false ];
+}

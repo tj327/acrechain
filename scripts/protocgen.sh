@@ -41,16 +41,16 @@ for dir in $proto_dirs; do
 done
 
 # move resulting files to the right places
-cp -r github.com/ArableProtocol/acrechain/v*/x/* x/
+cp -r github.com/ArableProtocol/acrechain/x/* x/
 rm -rf github.com
 
-# combine swagger files
-# uses nodejs package `swagger-combine`.
-# all the individual swagger files need to be configured in `config.json` for merging
-swagger-combine ./client/docs/config.json -o ./client/docs/swagger-ui/swagger.yaml -f yaml --continueOnConflictingPaths true --includeDefinitions true
+# # combine swagger files
+# # uses nodejs package `swagger-combine`.
+# # all the individual swagger files need to be configured in `config.json` for merging
+# swagger-combine ./client/docs/config.json -o ./client/docs/swagger-ui/swagger.yaml -f yaml --continueOnConflictingPaths true --includeDefinitions true
 
-# clean swagger files
-rm -rf ./tmp-swagger-gen
+# # clean swagger files
+# rm -rf ./tmp-swagger-gen
 
-# generate binary for static server (use -f flag to replace current binary)
-statik -f -src=./client/docs/swagger-ui -dest=./client/docs
+# # generate binary for static server (use -f flag to replace current binary)
+# statik -f -src=./client/docs/swagger-ui -dest=./client/docs

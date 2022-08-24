@@ -1,0 +1,20 @@
+syntax = "proto3";
+package acrechain.bridge;
+
+import "acrechain/bridge/bridge.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/ArableProtocol/acrechain/x/bridge/types";
+
+// GenesisState defines the module's genesis state.
+message GenesisState {
+  // module parameters
+  Params params = 1 [ (gogoproto.nullable) = false ];
+  // registered allocations
+  repeated AccountAllocation account_allocation = 2 [ (gogoproto.nullable) = false ];
+}
+
+// Params defines the bridge module params
+message Params {
+  string address = 1;
+}
